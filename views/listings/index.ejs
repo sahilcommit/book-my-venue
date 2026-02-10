@@ -1,0 +1,85 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="filters-container">
+    <div class="filters">
+        <a href="/listings?search=Popular" class="filter-link">
+            <div class="filter">
+                <i class="fa-solid fa-star"></i>
+                <p>Popular Venues</p>
+            </div>
+        </a>
+    
+        <a href="/listings?search=Event" class="filter-link">
+            <div class="filter">
+                <i class="fa-solid fa-building"></i>
+                <p>Event Halls</p>
+            </div>
+        </a>
+    
+        <a href="/listings?search=Wedding" class="filter-link">
+            <div class="filter">
+                <i class="fa-solid fa-ring"></i>
+                <p>Wedding Venues</p>
+            </div>
+        </a>
+    
+        <a href="/listings?search=Concert" class="filter-link">
+            <div class="filter">
+                <i class="fa-solid fa-music"></i>
+                <p>Concert Spaces</p>
+            </div>
+        </a>
+    
+        <a href="/listings?search=Party" class="filter-link">
+            <div class="filter">
+                <i class="fa-solid fa-champagne-glasses"></i>
+                <p>Party Venues</p>
+            </div>
+        </a>
+    
+        <a href="/listings?search=Corporate" class="filter-link">
+            <div class="filter">
+                <i class="fa-solid fa-briefcase"></i>
+                <p>Corporate Events</p>
+            </div>
+        </a>
+    
+        <a href="/listings?search=Banquet" class="filter-link">
+            <div class="filter">
+                <i class="fa-solid fa-utensils"></i>
+                <p>Banquet Halls</p>
+            </div>
+        </a>
+    
+        <a href="/listings?search=Outdoor" class="filter-link">
+            <div class="filter">
+                <i class="fa-solid fa-tree"></i>
+                <p>Outdoor Venues</p>
+            </div>
+        </a>
+    
+        <a href="/listings?search=Photo" class="filter-link">
+            <div class="filter">
+                <i class="fa-solid fa-camera"></i>
+                <p>Photo Shoots</p>
+            </div>
+        </a>
+    </div>
+</div>
+
+<div class="row row-cols-lg-4 row-cols-md-2 row-cols-sm-1 mt-3">
+    <% for(let listing of AllListings) { %>
+        <a href="/listings/<%=listing.id%>" class="listing-links">
+            <div class="card listing-card mb-4">
+                <img src="<%=listing.image.url%>" class="card-img-top" alt="venue_image" style="height: 20rem; object-fit: cover;">
+                <div class="card-img-overlay"></div>
+                <div class="card-body">
+                    <p class="card-text">
+                        <b><%= listing.title %></b> <br>
+                        &#8377; <%= listing.price.value.toLocaleString("en-IN") %> / <%= listing.price.unit %>
+                    </p>
+                </div>
+            </div>
+        </a>
+    <% } %>
+</div>

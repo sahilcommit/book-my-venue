@@ -97,7 +97,7 @@ The project follows the **Model-View-Controller** design pattern to ensure clean
 ├── .gitignore      # Specifies intentionally untracked files to ignore
 └── .env            # Private environment variables (DO NOT PUSH TO GITHUB)
 
-
+```
 
 ---
 

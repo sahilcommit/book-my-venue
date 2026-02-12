@@ -12,15 +12,12 @@
                 <p class="card-text mt-2">
                     <i>Hosted by: <%=listing.owner.username%></i>
                 </p>
-                <p class="card-text">
+                <div class="card-text">
                     <b><%=listing.title%></b><br>
                     <%=listing.description%> <br>
-                    <p class="card-text">
-                        <b><%= listing.title %></b> <br>
-                        &#8377; <%= listing.price.value.toLocaleString("en-IN") %> / <%= listing.price.unit %>
-                    </p>
+                    <hr> <b>&#8377; <%= listing.price.value.toLocaleString("en-IN") %></b> / <%= listing.price.unit %> <br>
                     <%=listing.location%>, <%=listing.country%>
-                </p>
+                </div>
             </div>
         </div>
 

@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const wrapAsync = require("../utils/wrapAsync");
 const passport = require("passport");
-const { saveRedirectUrl } = require("../middleware.js");
+const { saveRedirectUrl, isLoggedIn } = require("../middleware.js");
 const usersController = require("../controllers/users.js");
 
 // Signup Routes: Handles user registration
@@ -26,5 +26,11 @@ router
 
 // Logout Route: Destroys the user session
 router.get("/logout", usersController.logoutUser);
+
+// Profile Routes 
+router
+    .route("/profile")
+    .get(isLoggedIn, usersController.renderProfileForm)
+    .put(isLoggedIn, wrapAsync(usersController.updateProfile));
 
 module.exports = router;

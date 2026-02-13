@@ -6,13 +6,13 @@ module.exports.renderSignupForm = (req, res) => {
 };
 
 // Handle User Registration
-module.exports.signupUser = async (req, res) => {
+module.exports.signupUser = async (req, res, next) => {
     try {
-        let { username, email, password } = req.body;
-        const newUser = new User({ email, username });
+        let { username, email, password, phone } = req.body;
+        const newUser = new User({ email, username, phone });
+        
         const registeredUser = await User.register(newUser, password);
         
-        // Automatically log in the user after successful registration
         req.login(registeredUser, (err) => {
             if (err) return next(err);
             req.flash("success", "Welcome to Book My Venue!");
@@ -44,4 +44,41 @@ module.exports.logoutUser = (req, res, next) => {
         req.flash("success", "You are now logged out.");
         res.redirect("/listings");
     });
+};
+
+
+// Render Edit Profile Form
+module.exports.renderProfileForm = (req, res) => {
+    res.render("users/profile.ejs");
+};
+
+// Update Profile & Password
+module.exports.updateProfile = async (req, res) => {
+    try {
+        let { email, phone, oldPassword, newPassword } = req.body;
+        let user = await User.findById(req.user._id);
+
+        //  Update Email & Phone
+        user.email = email;
+        user.phone = phone;
+        await user.save();
+
+        //  Handle Password Change ONLY if user filled the password fields
+        if (oldPassword && newPassword) {
+            try {
+                await user.changePassword(oldPassword, newPassword);
+            } catch (passwordErr) {
+                
+                req.flash("error", "The current password you entered is incorrect.");
+                return res.redirect("/profile");
+            }
+        }
+
+        req.flash("success", "Profile updated successfully!");
+        res.redirect("/listings");
+        
+    } catch (e) {
+        req.flash("error", "Failed to update: " + e.message);
+        res.redirect("/profile");
+    }
 };

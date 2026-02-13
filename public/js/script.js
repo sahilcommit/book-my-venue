@@ -17,3 +17,19 @@
       }, false)
     })
   })()
+  
+// Password Visibility Toggle Logic
+const toggleBtn = document.getElementById('togglePassword');
+
+if (toggleBtn) {
+    toggleBtn.addEventListener('change', function() {
+        const isChecked = this.checked;
+        
+        // Select any input field containing "password" in the name attribute
+        const passwordFields = document.querySelectorAll('input[name*="assword"]');
+        
+        passwordFields.forEach(field => {
+            field.type = isChecked ? 'text' : 'password';
+        });
+    });
+}

@@ -202,3 +202,66 @@ body {
 .f-info-links a:hover {
     text-decoration: underline;
 }
+
+/* Container for User Actions */
+.navbar-nav.ms-auto {
+    display: flex;
+    align-items: center;
+}
+
+/* Profile Badge Styling */
+.btn-profile {
+    background-color: #f8f9fa; 
+    border: 1px solid #dee2e6;
+    border-radius: 20px;       
+    color: #333 !important;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-profile:hover {
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transform: translateY(-1px);
+}
+
+/* Logout link styling */
+.btn-logout {
+    color: #666 !important;
+    font-size: 0.9rem;
+    text-decoration: underline !important;
+}
+
+.btn-logout:hover {
+    color: #fe424d !important; 
+}
+
+.btn-login {
+    color: #444 !important;
+    font-weight: 500;
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.btn-login:hover {
+    color: #fe424d !important; 
+    border-bottom: 1px solid #fe424d;
+}
+
+/* Sign Up Button  */
+.btn-signup {
+    background-color: #fe424d;
+    color: white !important;
+    border-radius: 25px;       
+    padding-top: 6px;
+    padding-bottom: 6px;
+    font-weight: 600;
+    box-shadow: 0 2px 4px rgba(254, 66, 77, 0.2);
+    transition: all 0.3s ease;
+}
+
+.btn-signup:hover {
+    background-color: #e33b44;
+    box-shadow: 0 4px 8px rgba(254, 66, 77, 0.3);
+    transform: translateY(-1px);
+}

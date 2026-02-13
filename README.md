@@ -5,6 +5,7 @@
   <img src="https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB" />
   <img src="https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white" />
   <img src="https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E" />
+  <img src="https://img.shields.io/badge/Mapbox-000000?style=for-the-badge&logo=mapbox&logoColor=white" />
   <img src="https://img.shields.io/badge/Passport.js-34E27A?style=for-the-badge&logo=passport&logoColor=white" />
   <img src="https://img.shields.io/badge/bootstrap-%238511FA.svg?style=for-the-badge&logo=bootstrap&logoColor=white" />
   <img src="https://img.shields.io/badge/Render-%2346E3B7.svg?style=for-the-badge&logo=render&logoColor=white" />
@@ -23,13 +24,13 @@ A comprehensive Full-Stack web application designed for discovering and booking 
 
 ## ✨ Key Features
 
+* **Interactive Geospatial Mapping:** Integrated with **Mapbox SDK** to provide real-time geocoding and interactive maps for every venue.
 * **Dynamic Pricing Engine:** Supports localized pricing models tailored to the venue type (Wedding Lawns, Banquet Halls, etc.).
-* **Full CRUD Functionality:** Authenticated users can Create, Read, Update, and Delete venue listings with ease.
 * **Advanced Image Management:** Integrated with **Cloudinary API** for robust cloud storage, featuring automatic image resizing and optimizations.
-* **Secure Authentication:** Robust user login and signup system powered by **Passport.js**.
+* **Secure Authentication:** Robust user login and signup system powered by **Passport.js** with a custom "Show Password" UX toggle.
 * **Authorization & Security:** Custom middleware layers ensure only the venue owner can modify or delete their listings and reviews.
-* **Review & Rating System:** Interactive community feedback loop with star ratings and detailed comments.
-* **Search & Discovery:** Real-time search functionality to filter venues by category, location, or country.
+* **Search & Discovery:** Real-time search functionality to filter venues by title, location, or country.
+* **User Profile System:** Allows users to manage their contact information and securely update passwords.
 
 ---
 
@@ -38,13 +39,13 @@ A comprehensive Full-Stack web application designed for discovering and booking 
 **Frontend:**
 * **EJS (Embedded JavaScript):** For dynamic server-side rendering.
 * **Bootstrap 5:** Modern, responsive design and UI components.
-* **FontAwesome:** Professional iconography for categories and UI elements.
+* **Mapbox GL JS:** For high-performance vector maps and custom markers.
 
 **Backend:**
 * **Node.js & Express.js:** Fast and scalable server-side architecture.
-* **Mongoose (ODM):** Complex data modeling with nested objects and relationships.
+* **Mongoose (ODM):** Complex data modeling with nested objects and GeoJSON relationships.
 * **Joi:** Strict server-side schema validation to ensure data integrity.
-* **Multer & Multer-Storage-Cloudinary:** Handling `multipart/form-data` and seamless cloud uploads.
+* **Multer & Cloudinary:** Handling `multipart/form-data` and seamless cloud uploads.
 
 **Database:**
 * **MongoDB Atlas:** Distributed cloud database for reliable, persistent storage.
@@ -67,9 +68,9 @@ The project follows the **Model-View-Controller** design pattern to ensure clean
 
 ![Book-My-Venue Architecture](./assets/architecture.png)
 
-1.  **Models:** Defined schemas for Listings, Reviews, and Users with Mongoose.
+1.  **Models:** Defined schemas for Listings (including GeoJSON), Reviews, and Users.
 2.  **Views:** Responsive EJS templates using Boilerplate layouts and EJS-Mate.
-3.  **Controllers:** Modularized logic for handling requests, ensuring the code remains DRY (Don't Repeat Yourself).
+3.  **Controllers:** Modularized logic for handling requests, API calls, and geocoding.
 4.  **Routes:** RESTful API routes for predictable and clean navigation.
 
 
@@ -137,6 +138,7 @@ To get a local copy up and running, follow these simple steps:
     CLOUD_NAME=your_cloudinary_name
     CLOUD_API_KEY=your_api_key
     CLOUD_API_SECRET=your_api_secret
+    MAPBOX_TOKEN=your_mapbox_public_token
     ATLASDB_URL=your_mongodb_atlas_url
     SECRET=your_session_secret_key
     ```

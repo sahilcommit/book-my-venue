@@ -1,0 +1,60 @@
+<% layout("/layouts/boilerplate") %>
+<div class="row mt-3 mb-5">
+    <div class="col-6 offset-3">
+        <h2 class="mb-4">Account Settings</h2>
+        <form action="/profile?_method=PUT" method="POST" class="needs-validation" novalidate>
+            
+            <div class="mb-3">
+                <label class="form-label">Username</label>
+                <input type="text" class="form-control bg-light" value="<%= currUser.username %>" readonly>
+                <div class="form-text">Username cannot be changed.</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="email" class="form-label">Email Address</label>
+                <input type="email" name="email" id="email" class="form-control" value="<%= currUser.email %>" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="phone" class="form-label">Phone Number</label>
+                <input type="text" name="phone" id="phone" class="form-control" value="<%= currUser.phone %>" placeholder="+91 ...">
+            </div>
+
+            <hr class="my-4">
+            <h5 class="text-danger">Security</h5>
+            <p class="text-muted small">Fill these only if you want to change your password.</p>
+
+            <div class="mb-3">
+                <label for="oldPassword" class="form-label">Current Password</label>
+                <input type="password" name="oldPassword" id="oldPassword" class="form-control">
+            </div>
+
+            <div class="mb-3">
+                <label for="newPassword" class="form-label">New Password</label>
+                <input 
+                    type="password" 
+                    name="newPassword" 
+                    id="newPassword" 
+                    class="form-control"
+                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                >
+                <div class="form-text">
+                    Must be at least 8 characters, include a number, and an uppercase letter.
+                </div>
+                
+            </div>
+
+            <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" id="togglePassword">
+                <label class="form-check-label" for="togglePassword">
+                    Show Passwords
+                </label>
+            </div>
+
+            <button class="btn btn-dark w-100 mt-3">Save Changes</button>
+        </form>
+    </div>
+</div>
+
+
+</div>

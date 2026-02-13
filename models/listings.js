@@ -19,7 +19,6 @@ const listingSchema = new Schema({
             set: (v) => v === "" ? "https://images.unsplash.com/photo-1697807646004-31ae73a1a625?q=80&w=2070&auto=format&fit=crop" : v,
         },
     },
-    price: Number,
     location: String,
     country: String,
     reviews: [
@@ -44,6 +43,17 @@ const listingSchema = new Schema({
             default: 'day'
         }
     },
+    geometry: {
+        type: {
+            type: String,
+            enum: ['Point'], // 'location.type' must be 'Point'
+            required: true
+        },
+        coordinates: {
+            type: [Number],
+            required: true
+        }
+    }
 });
 
 /**

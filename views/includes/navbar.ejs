@@ -1,44 +1,48 @@
 <nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
-  <div class="container-fluid">
-      <a class="navbar-brand" href="/listings">
-          <div class="brand-container">
-              <div class="brand-icon">
-                  <i class="fa-solid fa-wand-magic-sparkles"></i>
-              </div>
-              <span class="brand-text">BookMy<span class="highlight">Venue</span></span>
-          </div>
-      </a>
-
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-          <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navbarNav">
-          <form class="d-flex ms-auto" role="search" action="/listings" method="GET">
-              <input 
-                  class="form-control me-2 search-input" 
-                  type="search" 
-                  placeholder="Search venues (e.g. Wedding, Concert)" 
-                  name="search"
-                  aria-label="Search"
-              >
-              <button class="btn btn-search" type="submit">
-                  <i class="fa-solid fa-magnifying-glass"></i> Search
-              </button>
-          </form>
-
-          <div class="navbar-nav ms-auto">
-              <a class="nav-link" href="/listings/new">List Your Venue</a>
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/listings">
+            <div class="brand-container">
+                <div class="brand-icon">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                </div>
+                <span class="brand-text">BookMy<span class="highlight">Venue</span></span>
+            </div>
+        </a>
+  
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+  
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <form class="d-flex ms-auto" role="search" action="/listings" method="GET">
+                <input 
+                    class="form-control me-2 search-input" 
+                    type="search" 
+                    placeholder="Search venues (e.g. Wedding, Concert)" 
+                    name="search"
+                    aria-label="Search"
+                >
+                <button class="btn btn-search" type="submit">
+                    <i class="fa-solid fa-magnifying-glass"></i> Search
+                </button>
+            </form>
+  
+            <div class="navbar-nav ms-auto align-items-center">
+              <a class="nav-link me-3" href="/listings/new">List Your Venue</a> 
               
               <% if(!currUser) { %>
-                  <a class="nav-link" href="/signup"><b>Sign Up</b></a>
-                  <a class="nav-link" href="/login"><b>Login</b></a>
+                  <a class="nav-link btn-login px-3 me-2" href="/login">Login</a>
+                  
+                  <a class="nav-link btn-signup px-3" href="/signup">Sign Up</a>
               <% } %>
               
               <% if(currUser) { %>
-                  <a class="nav-link" href="/logout">Logout</a>
+                  <a class="nav-link btn-profile px-3 me-2" href="/profile">
+                    <i class="fa-regular fa-circle-user"></i> <%= currUser.username %>
+                  </a>
+                  <a class="nav-link btn-logout" href="/logout">Logout</a>
               <% } %>
           </div>
-      </div>
-  </div>
-</nav>
+        </div>
+    </div>
+  </nav>

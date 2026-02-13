@@ -10,7 +10,11 @@
             <img src="<%=listing.image.url%>" class="card-img-top show-img" alt="venue_image">
             <div class="card-body">
                 <p class="card-text mt-2">
-                    <i>Hosted by: <%=listing.owner.username%></i>
+                    <i>Hosted by: 
+                        <button type="button" class="btn btn-link p-0 pb-1 mb-1" style="text-decoration: none; color: #fe424d; font-weight: 600;" data-bs-toggle="modal" data-bs-target="#contactModal">
+                            <%=listing.owner.username%> <i class="fa-regular fa-address-card ms-1"></i>
+                        </button>
+                    </i>
                 </p>
                 <div class="card-text">
                     <b><%=listing.title%></b><br>
@@ -88,3 +92,43 @@
         <% } %>
     </div>
 </div>
+
+<div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="contactModalLabel">Contact Info for <%= listing.owner.username %></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <% if(currUser) { %>
+              <div class="mb-3">
+                  <p><strong>Email:</strong> <a href="mailto:<%= listing.owner.email %>"><%= listing.owner.email %></a></p>
+                  <% if(listing.owner.phone) { %>
+                      <p><strong>Phone:</strong> <%= listing.owner.phone %></p>
+                  <% } %>
+              </div>
+              <p class="text-muted small">Reach out to the host to discuss booking details!</p>
+          <% } else { %>
+              <div class="text-center">
+                  <p>You must be logged in to view contact details.</p>
+                  <a href="/login" class="btn btn-dark btn-sm">Login Now</a>
+              </div>
+          <% } %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<hr>
+  <div class="col-8 offset-3 mb-3">
+    <h3>Where you'll be</h3>
+    <div id="map" style="height: 400px; width: 100%; border-radius: 10px;"></div>
+</div>
+<script>
+    
+    const mapToken = "<%= process.env.MAPBOX_TOKEN %>";
+    const listing = JSON.parse('<%- JSON.stringify(listing) %>');
+</script>

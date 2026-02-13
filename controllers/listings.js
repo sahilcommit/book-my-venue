@@ -1,6 +1,10 @@
 const Listing = require("../models/listings.js");
 const { cloudinary } = require("../cloudConfig");
 
+const mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
+const mapToken = process.env.MAPBOX_TOKEN;
+const geocodingClient = mbxGeocoding({ accessToken: mapToken });
+
 // GET: Display all venues or search results
 module.exports.index = async (req, res) => {
     let { search } = req.query;
@@ -50,18 +54,42 @@ module.exports.showListing = async (req, res) => {
     res.render("listings/show.ejs", { listing });
 };
 
-// POST: Save new venue to DB with Cloudinary image
-module.exports.createListing = async (req, res) => {
-    const url = req.file.path;
-    const filename = req.file.filename;
-    
-    const newlisting = new Listing(req.body.listing);
-    newlisting.owner = req.user._id; 
-    newlisting.image = { url, filename };
-    
-    await newlisting.save();
-    req.flash("success", "New Venue Added Successfully!");
-    res.redirect("/listings");
+// POST: Save new venue with Geocoding AND Cloudinary Image
+module.exports.createListing = async (req, res, next) => {
+    try {
+        //  Geocoding: Get coordinates from Mapbox
+        let response = await geocodingClient.forwardGeocode({
+            query: req.body.listing.location,
+            limit: 1
+        }).send();
+
+        // Validation: Check if Mapbox found the location
+        if (!response.body.features.length) {
+            req.flash("error", "Location not found! Please enter a valid address.");
+            return res.redirect("/listings/new");
+        }
+
+        //  Image: Get Cloudinary data from Multer
+        const url = req.file.path;
+        const filename = req.file.filename;
+
+        // Create the listing object
+        const newListing = new Listing(req.body.listing);
+        newListing.owner = req.user._id; 
+        newListing.image = { url, filename };
+
+        //  Save the Mapbox coordinates (GeoJSON)
+        // If Mapbox finds nothing,  provide a fallback or let it error
+        if (response.body.features.length > 0) {
+            newListing.geometry = response.body.features[0].geometry;
+        }
+
+        await newListing.save();
+        req.flash("success", "New Venue Added Successfully!");
+        res.redirect("/listings");
+    } catch (err) {
+        next(err); 
+    }
 };
 
 // GET: Render edit form with image transformation
@@ -84,7 +112,26 @@ module.exports.renderEditForm = async (req, res) => {
 // PUT: Update venue details and handle image replacement
 module.exports.updateListing = async (req, res) => {
     let { id } = req.params;
+    
+    // Re-calculate coordinates based on the NEW location
+    let response = await geocodingClient.forwardGeocode({
+        query: req.body.listing.location,
+        limit: 1
+    }).send();
+
+    //Validation: Check if Mapbox found the location
+    if (!response.body.features.length) {
+        req.flash("error", "Location not found! Please enter a valid address.");
+        return res.redirect(`/listings/${id}/edit`);
+    }
+
+    //Update the listing text and location fields
     let listing = await Listing.findByIdAndUpdate(id, { ...req.body.listing });
+
+    //  Save the new coordinates into the listing
+    if (response.body.features.length > 0) {
+        listing.geometry = response.body.features[0].geometry;
+    }
 
     if (req.file) {
         // Delete old image from Cloudinary to save storage space
@@ -99,7 +146,7 @@ module.exports.updateListing = async (req, res) => {
         };
         await listing.save();
     }
-    
+    await listing.save();
     req.flash("success", "Venue Details Updated!");
     res.redirect(`/listings/${id}`);
 };

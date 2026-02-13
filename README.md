@@ -106,9 +106,6 @@ The project follows the **Model-View-Controller** design pattern to ensure clean
 
 here are a few features I’m excited to build out to make the platform more robust:
 
-* **Map Integration:** To provide a visual search experience where users can see venue clusters on an interactive map.
-* **Smart Search:** Adding filters so users can find venues by category, price, or location.
-* **Booking System:** Implementing a calendar to allow users to reserve dates and prevent double bookings.
 * **Payments:** Integrating a secure checkout system for real-time venue reservations.
 * **User Profiles:** Creating a personal dashboard where users can manage their own listings and booking history.
 

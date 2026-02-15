@@ -1,158 +1,117 @@
 const sampleListings = [
   {
-    title: "Royal Wedding Palace",
-    description: "A grand palace perfect for luxury weddings and receptions.",
-    image: {
-      filename: "venue",
-      url: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&q=50"
+      title: "The Grand Atrium",
+      description: "A massive indoor hall with high ceilings, perfect for conventions and large galas.",
+      image: { url: "https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=800", filename: "hall" },
+      price: { value: 95000, unit: "day" },
+      location: "Mumbai",
+      country: "India",
+      category: "Event Halls",
+      geometry: { type: "Point", coordinates: [72.8777, 19.0760] }
+  },
+  {
+      title: "Eternal Bloom Gardens",
+      description: "A romantic outdoor wedding venue featuring floral arches and vintage stone paths.",
+      image: { url: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=800", filename: "wedding" },
+      price: { value: 150000, unit: "day" },
+      location: "Jaipur",
+      country: "India",
+      category: "Wedding Venues",
+      geometry: { type: "Point", coordinates: [75.7873, 26.9124] }
+  },
+  {
+      title: "Sonic Wave Arena",
+      description: "A state-of-the-art concert venue with built-in acoustic treatment and stage lighting.",
+      image: { url: "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?q=80&w=800", filename: "concert" },
+      price: { value: 25000, unit: "hour" },
+      location: "Bengaluru",
+      country: "India",
+      category: "Concert Spaces",
+      geometry: { type: "Point", coordinates: [77.5946, 12.9716] }
+  },
+  {
+      title: "The Neon Penthouse",
+      description: "Modern rooftop lounge with a neon bar—ideal for cocktail parties and birthdays.",
+      image: { url: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=800", filename: "party" },
+      price: { value: 65000, unit: "day" },
+      location: "Goa",
+      country: "India",
+      category: "Party Venues",
+      geometry: { type: "Point", coordinates: [73.7731, 15.5101] }
+  },
+  {
+      title: "Apex Boardroom",
+      description: "Glass-walled corporate meeting space with 4K display and high-speed connectivity.",
+      image: { url: "https://images.unsplash.com/photo-1431540015161-0bf868a2d407?q=80&w=800", filename: "corp" },
+      price: { value: 4500, unit: "hour" },
+      location: "Gurugram",
+      country: "India",
+      category: "Corporate Events",
+      geometry: { type: "Point", coordinates: [77.0266, 28.4595] }
+  },
+  {
+      title: "Lumina Daylight Studio",
+      description: "Minimalist industrial loft with professional backdrops for high-fashion photography.",
+      image: { url: "https://images.unsplash.com/photo-1520390138845-fd2d229dd553?q=80&w=800", filename: "shoot" },
+      price: { value: 3000, unit: "hour" },
+      location: "Kolkata",
+      country: "India",
+      category: "Photo Shoots",
+      geometry: { type: "Point", coordinates: [88.3639, 22.5726] }
+  },
+  {
+    title: "Royal Sapphire Banquet",
+    description: "An opulent banquet hall featuring crystal chandeliers, premium dining arrangements, and customizable décor themes for weddings and receptions.",
+    image: { 
+        url: "https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?q=80&w=800", 
+        filename: "banquet" 
     },
     price: { value: 120000, unit: "day" },
-    location: "Jaipur",
+    location: "Ahmedabad",
     country: "India",
-  },
-  {
-    title: "Sunset Beach Venue",
-    description: "Open-air beachfront venue ideal for sunset ceremonies.",
-    image: {
-      filename: "venue",
-      url: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=400&q=50"
+    category: "Banquet Halls",
+    geometry: { type: "Point", coordinates: [72.5714, 23.0225] }
+},
+{
+    title: "Sunset Meadows Lawn",
+    description: "A scenic open-air lawn surrounded by greenery and fairy lights, ideal for rustic weddings and cultural celebrations.",
+    image: { 
+        url: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=800", 
+        filename: "outdoor" 
     },
-    price: { value: 95000, unit: "day" },
-    location: "Goa",
-    country: "India",
-  },
-  {
-    title: "Modern Banquet Hall",
-    description: "Fully air-conditioned hall for weddings and parties.",
-    image: {
-      filename: "venue",
-      url: "https://images.unsplash.com/photo-1522156373667-4c7234bbd804?w=400&q=50"
-    },
-    price: { value: 70000, unit: "day" },
-    location: "Delhi",
-    country: "India",
-  },
-  {
-    title: "Corporate Conference Center",
-    description: "Professional space for meetings and corporate events.",
-    image: {
-      filename: "venue",
-      url: "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=400&q=50"
-    },
-    price: { value: 5000, unit: "hour" },
-    location: "Bengaluru",
-    country: "India",
-  },
-  {
-    title: "Garden Party Lawn",
-    description: "Green outdoor lawn for birthdays and celebrations.",
-    image: {
-      filename: "venue",
-      url: "https://images.unsplash.com/photo-1528909514045-2fa4ac7a08ba?w=400&q=50"
-    },
-    price: { value: 45000, unit: "day" },
-    location: "Pune",
-    country: "India",
-  },
-  {
-    title: "Luxury Rooftop Venue",
-    description: "City skyline rooftop venue for private events.",
-    image: {
-      filename: "venue",
-      url: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=400&q=50"
-    },
-    price: { value: 8000, unit: "hour" },
-    location: "Mumbai",
-    country: "India",
-  },
-  {
-    title: "Heritage Haveli",
-    description: "Traditional heritage venue with royal ambience.",
-    image: {
-      filename: "venue",
-      url: "https://images.unsplash.com/photo-1552733407-5d5c46c3bb3b?w=400&q=50"
-    },
-    price: { value: 110000, unit: "day" },
+    price: { value: 85000, unit: "day" },
     location: "Udaipur",
     country: "India",
-  },
-  {
-    title: "Poolside Party Venue",
-    description: "Stylish poolside venue for cocktail parties.",
-    image: {
-      filename: "venue",
-      url: "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=400&q=50"
+    category: "Outdoor Venues",
+    geometry: { type: "Point", coordinates: [73.7125, 24.5854] }
+},
+{
+    title: "Pulse Night Club Arena",
+    description: "A high-energy nightlife venue with DJ console, dynamic lighting systems, and spacious dance floor for concerts and themed parties.",
+    image: { 
+        url: "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?q=80&w=800", 
+        filename: "nightclub" 
     },
-    price: { value: 75000, unit: "day" },
+    price: { value: 18000, unit: "hour" },
     location: "Hyderabad",
     country: "India",
-  },
-  {
-    title: "Minimal Studio Space",
-    description: "Ideal for photo shoots and video productions.",
-    image: {
-      filename: "venue",
-      url: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=400&q=50"
+    category: "Concert Spaces",
+    geometry: { type: "Point", coordinates: [78.4867, 17.3850] }
+},
+{
+    title: "The Urban Creative Hub",
+    description: "A modern multi-purpose co-working and event space with flexible seating, workshop zones, and a minimalist industrial aesthetic.",
+    image: { 
+        url: "https://images.unsplash.com/photo-1497366811353-6870744d04b2?q=80&w=800", 
+        filename: "creative" 
     },
-    price: { value: 2500, unit: "hour" },
-    location: "Noida",
+    price: { value: 7000, unit: "hour" },
+    location: "Pune",
     country: "India",
-  },
-  {
-    title: "Elite Banquet Lounge",
-    description: "Premium banquet with modern interiors.",
-    image: { 
-      filename: "venue", 
-      url: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=400&q=50" 
-    },
-    price: { value: 85000, unit: "day" }, 
-    location: "Gurgaon", 
-    country: "India"
-  },
-  {
-    title: "Hilltop Event Resort",
-    description: "Scenic hilltop venue for destination events.",
-    image: { 
-      filename: "venue", 
-      url: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=400&q=50" 
-    },
-    price: { value: 130000, unit: "day" }, 
-    location: "Lonavala", 
-    country: "India"
-  },
-  {
-    title: "Industrial Event Space",
-    description: "Raw industrial venue for exhibitions.",
-    image: { 
-      filename: "venue", 
-      url: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=400&q=50" 
-    },
-    price: { value: 6000, unit: "hour" }, 
-    location: "Ahmedabad", 
-    country: "India"
-  },
-  {
-    title: "Temple Style Wedding Venue",
-    description: "Traditional South Indian wedding space.",
-    image: { 
-      filename: "venue", 
-      url: "https://images.unsplash.com/photo-1548013146-72479768bada?w=400&q=50" 
-    },
-    price: { value: 100000, unit: "day" }, 
-    location: "Madurai", 
-    country: "India"
-  },
-  {
-    title: "Luxury Farmhouse",
-    description: "Private farmhouse for parties & weddings.",
-    image: { 
-      filename: "venue", 
-      url: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=400&q=50" 
-    },
-    price: { value: 65000, unit: "day" }, 
-    location: "Faridabad", 
-    country: "India"
-  }
+    category: "Others",
+    geometry: { type: "Point", coordinates: [73.8567, 18.5204] }
+}
+
 ];
 
 module.exports = { data: sampleListings };

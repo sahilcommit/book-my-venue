@@ -7,39 +7,41 @@ const geocodingClient = mbxGeocoding({ accessToken: mapToken });
 
 // GET: Display all venues or search results
 module.exports.index = async (req, res) => {
-    let { search } = req.query;
-    let AllListings;
-
+    let { search, category } = req.query; 
+    let filter = {};
     if (search) {
-        // Advanced search across multiple fields
-        AllListings = await Listing.find({
+        filter = {
             $or: [
                 { title: { $regex: search, $options: "i" } },
                 { location: { $regex: search, $options: "i" } },
                 { country: { $regex: search, $options: "i" } }
             ]
-        });
-    } else {
-        AllListings = await Listing.find({});
+        };
+    } else if (category && category !== "Popular") {
+        filter = { category: category }; // Match the field in Schema
     }
 
-    if (AllListings.length === 0 && search) {
-        req.flash("error", "No venues match your search!");
+    let AllListings = await Listing.find(filter).populate("reviews");
+
+    // Special Popular Logic: Filter the array after fetching if rating > 4.5
+    if (category === "Popular") {
+        AllListings = AllListings.filter(l => l.avgRating >= 4.5);
+    }
+
+    if (AllListings.length === 0) {
+        req.flash("error", "No venues found!");
         return res.redirect("/listings");
     }
 
     res.render("listings/index.ejs", { AllListings });
 };
 
-// GET: Render form to create new venue
-module.exports.renderNewForm = (req, res) => {
-    res.render("listings/new.ejs");
-};
+
 
 // GET: Show detailed info for one venue
 module.exports.showListing = async (req, res) => {
     let { id } = req.params;
-    // Nested population: Get reviews, review authors, AND the venue owner
+    
     const listing = await Listing.findById(id)
         .populate({
             path: "reviews",
@@ -54,6 +56,11 @@ module.exports.showListing = async (req, res) => {
     res.render("listings/show.ejs", { listing });
 };
 
+
+// GET: Render form to create new venue
+module.exports.renderNewForm = (req, res) => {
+    res.render("listings/new.ejs");
+};
 // POST: Save new venue with Geocoding AND Cloudinary Image
 module.exports.createListing = async (req, res, next) => {
     try {
@@ -126,7 +133,7 @@ module.exports.updateListing = async (req, res) => {
     }
 
     //Update the listing text and location fields
-    let listing = await Listing.findByIdAndUpdate(id, { ...req.body.listing });
+    let listing = await Listing.findByIdAndUpdate(id, { ...req.body.listing },{ new: true, runValidators: true });
 
     //  Save the new coordinates into the listing
     if (response.body.features.length > 0) {

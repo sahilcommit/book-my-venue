@@ -10,6 +10,16 @@
                 <input type="text" name="listing[title]" value="<%=listing.title%>" class="form-control" required>
                 <div class="invalid-feedback">Please enter a catchy title.</div>
             </div>
+            <div class="mb-3 col-md-4">
+                <label for="category" class="form-label">Category</label>
+                <select name="listing[category]" class="form-select" id="category">
+                    <% const options = ["Event Halls", "Wedding Venues", "Concert Spaces", "Party Venues", "Corporate Events", "Banquet Halls", "Outdoor Venues", "Photo Shoots", "Others"]; %>
+                    
+                    <% for(let opt of options) { %>
+                        <option value="<%= opt %>" <%= listing.category == opt ? "selected" : "" %> > <%= opt %> </option>
+                    <% } %>
+                </select>
+            </div>
 
             <div class="mb-3">
                 <label for="description" class="form-label">Description</label>

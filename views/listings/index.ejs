@@ -2,66 +2,72 @@
 
 <div class="filters-container">
     <div class="filters">
-        <a href="/listings?search=Popular" class="filter-link">
+        <a href="/listings?category=Popular" class="filter-link">
             <div class="filter">
-                <i class="fa-solid fa-star"></i>
-                <p>Popular Venues</p>
+                <i class="fa-solid fa-fire"></i>
+                <p>Popular</p>
             </div>
         </a>
     
-        <a href="/listings?search=Event" class="filter-link">
+        <a href="/listings?category=Event Halls" class="filter-link">
             <div class="filter">
                 <i class="fa-solid fa-building"></i>
                 <p>Event Halls</p>
             </div>
         </a>
     
-        <a href="/listings?search=Wedding" class="filter-link">
+        <a href="/listings?category=Wedding Venues" class="filter-link">
             <div class="filter">
                 <i class="fa-solid fa-ring"></i>
                 <p>Wedding Venues</p>
             </div>
         </a>
     
-        <a href="/listings?search=Concert" class="filter-link">
+        <a href="/listings?category=Concert Spaces" class="filter-link">
             <div class="filter">
                 <i class="fa-solid fa-music"></i>
                 <p>Concert Spaces</p>
             </div>
         </a>
     
-        <a href="/listings?search=Party" class="filter-link">
+        <a href="/listings?category=Party Venues" class="filter-link">
             <div class="filter">
                 <i class="fa-solid fa-champagne-glasses"></i>
                 <p>Party Venues</p>
             </div>
         </a>
     
-        <a href="/listings?search=Corporate" class="filter-link">
+        <a href="/listings?category=Corporate Events" class="filter-link">
             <div class="filter">
                 <i class="fa-solid fa-briefcase"></i>
-                <p>Corporate Events</p>
+                <p>Corporate</p>
             </div>
         </a>
     
-        <a href="/listings?search=Banquet" class="filter-link">
+        <a href="/listings?category=Banquet Halls" class="filter-link">
             <div class="filter">
                 <i class="fa-solid fa-utensils"></i>
                 <p>Banquet Halls</p>
             </div>
         </a>
     
-        <a href="/listings?search=Outdoor" class="filter-link">
+        <a href="/listings?category=Outdoor Venues" class="filter-link">
             <div class="filter">
                 <i class="fa-solid fa-tree"></i>
-                <p>Outdoor Venues</p>
+                <p>Outdoor</p>
             </div>
         </a>
     
-        <a href="/listings?search=Photo" class="filter-link">
+        <a href="/listings?category=Photo Shoots" class="filter-link">
             <div class="filter">
                 <i class="fa-solid fa-camera"></i>
                 <p>Photo Shoots</p>
+            </div>
+        </a>
+        <a href="/listings?category=Others" class="filter-link">
+            <div class="filter">
+                <i class="fa-solid fa-ellipsis"></i>
+                <p>Others</p>
             </div>
         </a>
     </div>
@@ -76,6 +82,23 @@
                 <div class="card-body">
                     <p class="card-text">
                         <b><%= listing.title %></b> <br>
+                        
+                        <div class="mb-1">
+                            <% if(listing.reviews && listing.reviews.length > 0) { %>
+                                <span class="text-warning">
+                                    <i class="fa-solid fa-star"></i> 
+                                    <b><%= listing.avgRating %></b>
+                                </span>
+                                <span class="text-muted" style="font-size: 0.9rem;">
+                                    (<%= listing.reviews.length %> <%= listing.reviews.length === 1 ? 'review' : 'reviews' %>)
+                                </span>
+                            <% } else { %>
+                                <span class="text-muted small">
+                                    <i class="fa-regular fa-star"></i> No reviews
+                                </span>
+                            <% } %>
+                        </div>
+
                         &#8377; <%= listing.price.value.toLocaleString("en-IN") %> / <%= listing.price.unit %>
                     </p>
                 </div>

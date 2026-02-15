@@ -14,6 +14,17 @@ module.exports.listingSchema = Joi.object({
             value: Joi.number().required().min(0),
             unit: Joi.string().valid('day', 'hour').required()
         }).required(),
+        category: Joi.string().valid(
+          "Event Halls", 
+          "Wedding Venues", 
+          "Concert Spaces", 
+          "Party Venues", 
+          "Corporate Events", 
+          "Banquet Halls", 
+          "Outdoor Venues", 
+          "Photo Shoots", 
+          "Others"
+      ).required(),
         image: Joi.string().allow("", null)
     }).required()
 });

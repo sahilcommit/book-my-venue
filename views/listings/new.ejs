@@ -12,6 +12,22 @@
             </div>
 
             <div class="mb-3">
+                <label for="category" class="form-label">Category</label>
+                <select name="listing[category]" class="form-select" required>
+                    
+                    <option value="Event Halls">Event Halls</option>
+                    <option value="Wedding Venues">Wedding Venues</option>
+                    <option value="Concert Spaces">Concert Spaces</option>
+                    <option value="Party Venues">Party Venues</option>
+                    <option value="Corporate Events">Corporate Events</option>
+                    <option value="Banquet Halls">Banquet Halls</option>
+                    <option value="Outdoor Venues">Outdoor Venues</option>
+                    <option value="Photo Shoots">Photo Shoots</option>
+                    <option value="Others">Others</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
                 <label for="description" class="form-label">Description</label>
                 <textarea name="listing[description]" placeholder="Describe the space, amenities, and capacity..." class="form-control" rows="4" required></textarea>
                 <div class="invalid-feedback">Please enter a short description.</div>

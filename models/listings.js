@@ -21,6 +21,11 @@ const listingSchema = new Schema({
     },
     location: String,
     country: String,
+    category: {
+        type: String,
+        enum: ["Event Halls", "Wedding Venues", "Concert Spaces", "Party Venues", "Corporate Events", "Banquet Halls", "Outdoor Venues", "Photo Shoots", "Others"],
+        default: "Others"
+    },
     reviews: [
         {
             type: Schema.Types.ObjectId,
@@ -39,14 +44,14 @@ const listingSchema = new Schema({
         },
         unit: {
             type: String,
-            enum: ['day', 'hour'], // Only allows these two values
+            enum: ['day', 'hour'],
             default: 'day'
         }
     },
     geometry: {
         type: {
             type: String,
-            enum: ['Point'], // 'location.type' must be 'Point'
+            enum: ['Point'],
             required: true
         },
         coordinates: {
@@ -54,12 +59,32 @@ const listingSchema = new Schema({
             required: true
         }
     }
+}, 
+{ 
+    // This second argument enables virtuals to be visible 
+    // when you convert the document to JSON or Objects
+    toJSON: { virtuals: true }, 
+    toObject: { virtuals: true } 
+});
+
+/**
+ * Virtual: Average Rating Calculation
+ * Calculates the mean rating from the reviews array on the fly.
+ */
+listingSchema.virtual("avgRating").get(function () {
+    if (!this.reviews || this.reviews.length === 0) {
+        return 0;
+    }
+    let sum = 0;
+    for (let review of this.reviews) {
+        sum += review.rating;
+    }
+    return (sum / this.reviews.length).toFixed(1); 
 });
 
 /**
  * Post-Middleware: Cascading Delete
- * When a Listing is deleted, this automatically removes all associated reviews 
- * from the database to prevent "orphan" data.
+ * Automatically removes associated reviews when a Listing is deleted.
  */
 listingSchema.post("findOneAndDelete", async (listing) => {
     if (listing) {

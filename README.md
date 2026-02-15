@@ -25,12 +25,12 @@ A comprehensive Full-Stack web application designed for discovering and booking 
 ## ✨ Key Features
 
 * **Interactive Geospatial Mapping:** Integrated with **Mapbox SDK** to provide real-time geocoding and interactive maps for every venue.
-* **Dynamic Pricing Engine:** Supports localized pricing models tailored to the venue type (Wedding Lawns, Banquet Halls, etc.).
 * **Advanced Image Management:** Integrated with **Cloudinary API** for robust cloud storage, featuring automatic image resizing and optimizations.
 * **Secure Authentication:** Robust user login and signup system powered by **Passport.js** with a custom "Show Password" UX toggle.
 * **Authorization & Security:** Custom middleware layers ensure only the venue owner can modify or delete their listings and reviews.
 * **Search & Discovery:** Real-time search functionality to filter venues by title, location, or country.
 * **User Profile System:** Allows users to manage their contact information and securely update passwords.
+* **Advanced Rating System:** Implemented star-rating logic with virtuals to provide a visual breakdown of user satisfaction.
 
 ---
 
@@ -99,21 +99,6 @@ The project follows the **Model-View-Controller** design pattern to ensure clean
 └── .env            # Private environment variables (DO NOT PUSH TO GITHUB)
 
 ```
-
----
-
-## 🚀 Future Improvements
-
-here are a few features I’m excited to build out to make the platform more robust:
-
-* **Map Integration:** To provide a visual search experience where users can see venue clusters on an interactive map.
-* **Smart Search:** Adding filters so users can find venues by category, price, or location.
-* **Booking System:** Implementing a calendar to allow users to reserve dates and prevent double bookings.
-* **Payments:** Integrating a secure checkout system for real-time venue reservations.
-* **User Profiles:** Creating a personal dashboard where users can manage their own listings and booking history.
-
-*Feel free to suggest new features or report any bugs by opening an issue!*
-
 
 ---
 

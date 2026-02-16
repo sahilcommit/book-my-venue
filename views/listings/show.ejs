@@ -1,11 +1,9 @@
 <% layout("/layouts/boilerplate") %>
 
-<div class="row mt-3">
-    <div class="col-8 offset-3">
+<div class="row mt-3 justify-content-center">
+    <div class="col-11 col-md-8 px-0">
         <h3>Venue Details</h3>
-    </div>
-
-    <div class="col-8 offset-3">
+        
         <div class="listing-card">
             <img src="<%=listing.image.url%>" class="card-img-top show-img" alt="venue_image">
             <div class="card-body">
@@ -27,7 +25,7 @@
 
         <% if(currUser && currUser._id.equals(listing.owner._id)) { %>
         <div class="btns mb-4">
-            <a href="/listings/<%=listing.id%>/edit" class="btn edit-btn col-1">Edit</a>
+            <a href="/listings/<%=listing.id%>/edit" class="btn edit-btn px-4">Edit</a>
             <form method="POST" action="/listings/<%=listing.id%>?_method=DELETE" class="d-inline ms-3">
                 <button class="btn btn-dark">Delete Venue</button>
             </form>
@@ -37,7 +35,7 @@
         <hr>
 
         <% if(currUser) { %>
-        <div class="col-12 mb-3">
+        <div class="col-12 mb-3 px-0">
             <h4>Leave a Review</h4>
             <form action="/listings/<%=listing.id%>/reviews" method="POST" novalidate class="needs-validation">
                 <div class="mb-3 mt-3">
@@ -71,10 +69,10 @@
         <% } %>
 
         <% if(listing.reviews.length > 0) { %>
-        <div class="row">
-            <p><b>All Reviews</b></p>
+        <div class="row m-0">
+            <p class="ps-0"><b>All Reviews</b></p>
             <% for(review of listing.reviews) { %>
-            <div class="card col-5 mb-3 ms-3">
+            <div class="card col-12 col-md-5 mb-3 ms-md-3 p-0">
                 <div class="card-body">
                     <h5 class="card-title">@<%=review.author.username%></h5>
                     <p class="starability-result card-text" data-rating="<%=review.rating%>"></p>
@@ -90,6 +88,13 @@
             <% } %>
         </div>
         <% } %>
+
+        <hr>
+        
+        <div class="col-12 mb-3 px-0">
+            <h3>Where you'll be</h3>
+            <div id="map" style="height: 400px; width: 100%; border-radius: 10px;"></div>
+        </div>
     </div>
 </div>
 
@@ -122,13 +127,8 @@
       </div>
     </div>
   </div>
-<hr>
-  <div class="col-8 offset-3 mb-3">
-    <h3>Where you'll be</h3>
-    <div id="map" style="height: 400px; width: 100%; border-radius: 10px;"></div>
-</div>
+
 <script>
-    
     const mapToken = "<%= process.env.MAPBOX_TOKEN %>";
     const listing = JSON.parse('<%- JSON.stringify(listing) %>');
 </script>

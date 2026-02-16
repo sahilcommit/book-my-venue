@@ -5,6 +5,7 @@ body {
     flex-direction: column;
     min-height: 100vh;
     background-color: #ebebeb !important;
+    overflow-x: hidden;
 }
 
 /* Sticky Footer Logic */
@@ -265,3 +266,21 @@ body {
     box-shadow: 0 4px 8px rgba(254, 66, 77, 0.3);
     transform: translateY(-1px);
 }
+/* Prevent navbar links from hitting the edge/scrollbar */
+.navbar-nav {
+    padding-right: 1rem; 
+    padding-left: 1rem;
+}
+
+/* Ensure the toggler menu doesn't overlap content below it */
+@media (max-width: 768px) {
+    .navbar-collapse {
+        background-color: white; 
+        position: relative;
+        z-index: 1000;
+        padding-bottom: 1rem;
+        padding-top: 1rem;
+        border-bottom: 1px solid #ddd;
+    }
+}
+
